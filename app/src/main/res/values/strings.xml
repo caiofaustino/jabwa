@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">jabwa</string>
+    <string name="app_name">JABWA</string>
+
+    <string name="generated_address_label">Generated address:</string>
+    <string name="generate_address_btn">Generate Address</string>
 </resources>
