@@ -1,6 +1,5 @@
-package dev.caiofaustino.jabwa
+package dev.caiofaustino.jabwa.encryption
 
-import dev.caiofaustino.jabwa.encryption.ECKey
 import org.bouncycastle.crypto.AsymmetricCipherKeyPair
 import org.bouncycastle.crypto.ec.CustomNamedCurves
 import org.bouncycastle.crypto.generators.ECKeyPairGenerator

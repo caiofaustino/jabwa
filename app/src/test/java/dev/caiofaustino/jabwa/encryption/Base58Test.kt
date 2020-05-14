@@ -1,4 +1,4 @@
-package dev.caiofaustino.jabwa
+package dev.caiofaustino.jabwa.encryption
 
 import dev.caiofaustino.jabwa.encoding.Base58
 import org.junit.Test
@@ -6,11 +6,6 @@ import java.math.BigInteger
 import java.nio.charset.Charset
 
 class Base58Test {
-
-    @Test
-    fun playground() {
-
-    }
 
     @Test
     fun cat_example_fromString() {
