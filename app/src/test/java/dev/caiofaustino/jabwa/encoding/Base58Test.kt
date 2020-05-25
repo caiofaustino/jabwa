@@ -1,6 +1,5 @@
-package dev.caiofaustino.jabwa.encryption
+package dev.caiofaustino.jabwa.encoding
 
-import dev.caiofaustino.jabwa.encoding.Base58
 import org.junit.Test
 import java.math.BigInteger
 import java.nio.charset.Charset
