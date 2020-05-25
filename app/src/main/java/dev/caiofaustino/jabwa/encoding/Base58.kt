@@ -51,6 +51,12 @@ class Base58 private constructor() {
          * Encodes a ByteArray to a Base58 String.
          */
         fun fromByteArray(byteArray: ByteArray): String {
+            // Count number of leading bytes with value zero
+            var leadingZeros = 0
+            while (leadingZeros < byteArray.size && byteArray[leadingZeros] == 0.toByte()) {
+                leadingZeros++
+            }
+
             val originalValue = BigInteger(byteArray)
             val base58 = BigInteger("58")
 
@@ -59,10 +65,18 @@ class Base58 private constructor() {
 
             // Calculate until we reach zero
             while (calculatedValue.compareTo(BigInteger.ONE) == 1) {
+                // [0] is result, [1] is remainder
                 val division = calculatedValue.divideAndRemainder(base58)
                 calculatedValue = division[0]
                 // remainder at division[1] represents char to append
                 result = ALPHABET[division[1].toInt()] + result
+            }
+
+            // add back encoded leading zeros
+            if (leadingZeros > 0) {
+                val leadingZerosArray = CharArray(leadingZeros)
+                Arrays.fill(leadingZerosArray, ALPHABET[0])
+                result = String(leadingZerosArray) + result
             }
 
             return result

@@ -8,7 +8,7 @@ import java.nio.charset.Charset
 class Base58Test {
 
     @Test
-    fun cat_example_fromString() {
+    fun test_cat_example_fromString() {
         val base58encodedString = "PdgX"
         val expectedValue = BigInteger("4415860")
         val expectedStringValue = "Cat"
@@ -20,10 +20,18 @@ class Base58Test {
     }
 
     @Test
-    fun cat_example_fromByteArray() {
+    fun test_cat_example_fromByteArray() {
         val stringToEncode = "Cat"
         val expectedEncodedValue = "PdgX"
         // 4415860
         assert(Base58.fromByteArray(stringToEncode.toByteArray()) == expectedEncodedValue)
+    }
+
+    @Test
+    fun test_leading_zeros() {
+        val byteArrayToEncode = byteArrayOf(0, 0, 1, 2)
+        val expectedEncodedValue = "115T"
+        // 258
+        assert(Base58.fromByteArray(byteArrayToEncode) == expectedEncodedValue)
     }
 }
