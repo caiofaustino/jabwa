@@ -23,16 +23,10 @@ class ECKeyTest {
         val bigInteger = BigInteger("1234567890", 10)
         val bigIntKey = ECKey(bigInteger)
 
-        println("bigIntKey private: ${bigIntKey.privateString()}")
-        println("bigIntKey public: ${bigIntKey.publicString()}")
-
         Assert.assertFalse(bigIntKey.isPubOnly);
 
         val byteArray = "1234567890".toByteArray()
         val biteArrayKey = ECKey(byteArray)
-
-        println("biteArrayKey private: ${biteArrayKey.privateString()}")
-        println("biteArrayKey public: ${biteArrayKey.publicString()}")
 
         Assert.assertFalse(biteArrayKey.isPubOnly);
     }

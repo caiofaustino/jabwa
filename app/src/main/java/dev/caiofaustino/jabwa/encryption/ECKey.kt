@@ -12,9 +12,12 @@ import org.bouncycastle.math.ec.FixedPointUtil
 import java.math.BigInteger
 import java.security.SecureRandom
 
-class ECKey(private val privateKey: BigInteger?, private val publicKey: ECPoint) {
+class ECKey(private val privateKeyInternal: BigInteger?, private val publicKeyInternal: ECPoint) {
 
-    val isPubOnly: Boolean = privateKey == null
+    val privateKey: ByteArray
+    val publicKey: ByteArray
+
+    val isPubOnly: Boolean = privateKeyInternal == null
 
     constructor(privateKey: ByteArray) : this(BigInteger(1, privateKey))
 
@@ -24,11 +27,16 @@ class ECKey(private val privateKey: BigInteger?, private val publicKey: ECPoint)
 
     init {
         // Try and catch buggy callers or bad key imports, etc.
-        if (privateKey != null) {
-            assert(checkKey(privateKey)) {
+        privateKey = if (privateKeyInternal != null) {
+            assert(checkKey(privateKeyInternal)) {
                 throw RuntimeException("Invalid Private Key")
             }
+            privateKeyInternal.toByteArray().clone()
+        } else {
+            ByteArray(0)
         }
+
+        publicKey = publicKeyInternal.getEncoded(false)
 
         // TODO: HALF_CURVE_ORDER - don't know what this is
 
@@ -62,16 +70,6 @@ class ECKey(private val privateKey: BigInteger?, private val publicKey: ECPoint)
 //            s = com.google.bitcoin.core.ECKey.CURVE.getN().subtract(s)
 //        }
 //    }
-
-    // TODO just for testing and debugging, should be removed
-    fun privateString(): String {
-        return privateKey.toString()
-    }
-
-    // TODO just for testing and debugging, should be removed
-    fun publicString(): String {
-        return publicKey.toString()
-    }
 
     companion object {
 
