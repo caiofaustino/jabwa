@@ -26,12 +26,13 @@ class ECKey(private val privateKeyInternal: BigInteger?, private val publicKeyIn
     constructor (publicKey: ECPoint) : this (null, publicKey)
 
     init {
-        // Try and catch buggy callers or bad key imports, etc.
         privateKey = if (privateKeyInternal != null) {
-            assert(checkKey(privateKeyInternal)) {
+            // Try and catch buggy callers or bad key imports, etc.
+            if (!checkKey(privateKeyInternal)) {
                 throw RuntimeException("Invalid Private Key")
             }
-            privateKeyInternal.toByteArray().clone()
+
+            privateKeyInternal.toUnsignedByteArray()
         } else {
             ByteArray(0)
         }
@@ -39,15 +40,17 @@ class ECKey(private val privateKeyInternal: BigInteger?, private val publicKeyIn
         publicKey = publicKeyInternal.getEncoded(false)
 
         // TODO: HALF_CURVE_ORDER - don't know what this is
-
         // If "pub" is set but not "priv", we can only verify signatures, not make them.
-
     }
 
+    /**
+     * Check if private key is valid value.
+     */
     private fun checkKey(key: BigInteger): Boolean {
         // Zero and one are special because these are often used as sentinel values and because scripting languages have a habit of auto-casting true and false to
         // 1 and 0 or vice-versa. Type confusion bugs could therefore result in private keys with these values.
-        return key.bitLength() <= 32 * 8 && key != BigInteger.ZERO && key != BigInteger.ONE
+        val expectedBitLength = 32 * 8 // 32 bytes
+        return key.bitLength() <= expectedBitLength && key != BigInteger.ZERO && key != BigInteger.ONE
     }
 
 //    /**
