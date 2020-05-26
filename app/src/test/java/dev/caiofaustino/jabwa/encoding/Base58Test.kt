@@ -33,4 +33,12 @@ class Base58Test {
         // 258
         assert(Base58.fromByteArray(byteArrayToEncode) == expectedEncodedValue)
     }
+
+    @Test
+    fun test_negative_byteArray() {
+        val byteArrayToEncode = byteArrayOf(-1, -1)
+        val expectedEncodedValue = "LUv"
+        // [-1, -1] should become [255, 255] = 65535
+        assert(Base58.fromByteArray(byteArrayToEncode) == expectedEncodedValue)
+    }
 }

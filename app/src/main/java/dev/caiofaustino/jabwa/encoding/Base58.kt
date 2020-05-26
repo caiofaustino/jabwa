@@ -57,10 +57,11 @@ class Base58 private constructor() {
                 leadingZeros++
             }
 
-            val originalValue = BigInteger(byteArray)
+            // Treat array as unsigned (always positive)
+            val originalValue = BigInteger(1, byteArray)
             val base58 = BigInteger("58")
 
-            var calculatedValue: BigInteger = BigInteger(originalValue.toByteArray())
+            var calculatedValue = BigInteger(originalValue.toByteArray())
             var result = ""
 
             // Calculate until we reach zero
