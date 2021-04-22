@@ -2,16 +2,19 @@ package dev.caiofaustino.jabwa
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import kotlinx.android.synthetic.main.activity_main.*
+import dev.caiofaustino.jabwa.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        generateAddressButton.setOnClickListener{
-            addressInputField.setText("Sorry, this is still WIP.")
+        binding.generateAddressButton.setOnClickListener{
+            binding.addressInputField.setText("Sorry, this is still WIP.")
         }
     }
 }
