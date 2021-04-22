@@ -1,5 +1,6 @@
 import java.security.MessageDigest
 
+/*
 afterEvaluate {
     def relevantConfigurations = configurations.all.findAll {
         it.canBeResolved && it.name.contains("Classpath") && !it.name.contains("AndroidTest") && !it.name.contains("UnitTest")
@@ -49,3 +50,4 @@ afterEvaluate {
 
     logger.lifecycle("Done successfully.\n")
 }
+*/
