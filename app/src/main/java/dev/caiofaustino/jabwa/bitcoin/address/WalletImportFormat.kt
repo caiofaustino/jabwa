@@ -12,7 +12,7 @@ object WalletImportFormat {
      * Generate encoded WIF address from private key [ByteArray].
      * Key expected be be size [PRIVATE_KEY_ARRAY_SIZE]
      */
-    fun fromPrivateKey(privateKey: ByteArray) : String {
+    fun fromPrivateKey(privateKey: ByteArray): String {
         if (privateKey.size != PRIVATE_KEY_ARRAY_SIZE) {
             throw IllegalArgumentException(
                 "Wrong public key size: is ${privateKey.size} should be $PRIVATE_KEY_ARRAY_SIZE."

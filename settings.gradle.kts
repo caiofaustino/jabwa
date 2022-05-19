@@ -11,8 +11,6 @@ pluginManagement {
     }
 }
 
-enableFeaturePreview("VERSION_CATALOGS")
-
 @kotlin.Suppress("UnstableApiUsage")
 dependencyResolutionManagement {
     // If this mode is set, any repository declared directly in a project,
