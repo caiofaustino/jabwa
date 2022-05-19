@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:dist="http://schemas.android.com/apk/distribution"
-          package="dev.caiofaustino.jabwa">
+          xmlns:dist="http://schemas.android.com/apk/distribution">
 
     <dist:module dist:instant="true"/>
 
@@ -15,7 +14,9 @@
             android:theme="@style/AppTheme">
         <activity android:name=".CreateWalletActivity">
         </activity>
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
