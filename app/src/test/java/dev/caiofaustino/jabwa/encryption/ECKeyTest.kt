@@ -23,12 +23,12 @@ class ECKeyTest {
         val bigInteger = BigInteger("1234567890", 10)
         val bigIntKey = ECKey(bigInteger)
 
-        Assert.assertFalse(bigIntKey.isPubOnly);
+        Assert.assertFalse(bigIntKey.isPubOnly)
 
         val byteArray = "1234567890".toByteArray()
         val biteArrayKey = ECKey(byteArray)
 
-        Assert.assertFalse(biteArrayKey.isPubOnly);
+        Assert.assertFalse(biteArrayKey.isPubOnly)
     }
 
     @Test
@@ -37,7 +37,7 @@ class ECKeyTest {
 
         val pubOnlyKey = ECKey(generateRandomPublic().q)
 
-        assert(pubOnlyKey.isPubOnly);
+        assert(pubOnlyKey.isPubOnly)
     }
 
     @Test
@@ -46,12 +46,12 @@ class ECKeyTest {
 
         val keyFromPrivate = ECKey(generateRandomPrivate().d)
 
-        Assert.assertFalse(keyFromPrivate.isPubOnly);
+        Assert.assertFalse(keyFromPrivate.isPubOnly)
 
         val privateKey = generateRandomPrivate().d
         val ecKey = ECKey(privateKey, FixedPointCombMultiplier().multiply(curve.g, privateKey))
 
-        Assert.assertFalse(ecKey.isPubOnly);
+        Assert.assertFalse(ecKey.isPubOnly)
     }
 
     private fun generateRandomPublic(): ECPublicKeyParameters {

@@ -1,7 +1,7 @@
 package dev.caiofaustino.jabwa.encoding
 
 import java.math.BigInteger
-import java.util.*
+import java.util.Arrays
 
 /**
  * Naive and totally not optimized encoding and decoding for Base58
@@ -21,7 +21,7 @@ class Base58 private constructor() {
         init {
             Arrays.fill(ALPHABET_VALUES, -1)
             for (i in ALPHABET.indices) {
-                ALPHABET_VALUES[ALPHABET[i].toInt()] = i
+                ALPHABET_VALUES[ALPHABET[i].code] = i
             }
         }
 
@@ -34,7 +34,7 @@ class Base58 private constructor() {
 
             for (i in base58String.indices) {
                 // get value corresponding to character
-                val positionValue = ALPHABET_VALUES[base58String[i].toInt()]
+                val positionValue = ALPHABET_VALUES[base58String[i].code]
                 if (positionValue == -1) {
                     throw IllegalArgumentException("Invalid character in String: ${base58String[i]}")
                 }
@@ -82,6 +82,5 @@ class Base58 private constructor() {
 
             return result
         }
-
     }
 }

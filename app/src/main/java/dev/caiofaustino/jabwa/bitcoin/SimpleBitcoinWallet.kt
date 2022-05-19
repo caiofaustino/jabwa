@@ -12,7 +12,7 @@ class SimpleBitcoinWallet(private val key: ECKey) {
     val privateAddress: String = WalletImportFormat.fromPrivateKey(key.privateKey)
 
     companion object {
-        fun generate() : SimpleBitcoinWallet {
+        fun generate(): SimpleBitcoinWallet {
             val ecKey = ECKey.generate()
             return SimpleBitcoinWallet(ecKey)
         }

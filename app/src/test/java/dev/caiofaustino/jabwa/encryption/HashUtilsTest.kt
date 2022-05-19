@@ -10,7 +10,6 @@ class HashUtilsTest {
     fun cat_example_hash() {
         val baseString = "Cat"
         // TODO check expected result value
-        val expectedHashValue = "??"
 
         val catDoubleHash = HashUtils.hash160(baseString.toByteArray(Charset.defaultCharset()))
         val encodedResult = Hex.toHexString(catDoubleHash)

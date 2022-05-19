@@ -3,6 +3,7 @@ package dev.caiofaustino.jabwa.encryption
 import org.bouncycastle.util.encoders.Hex
 import org.junit.Test
 import java.nio.charset.Charset
+import java.util.Locale
 
 class Ripmed160Test {
 
@@ -14,6 +15,6 @@ class Ripmed160Test {
         val catHash = Ripmed160.hash(baseString.toByteArray(Charset.defaultCharset()))
         val encodedResult = Hex.toHexString(catHash)
 
-        assert(encodedResult.toUpperCase() == expectedHashValue)
+        assert(encodedResult.uppercase(Locale.getDefault()) == expectedHashValue)
     }
 }

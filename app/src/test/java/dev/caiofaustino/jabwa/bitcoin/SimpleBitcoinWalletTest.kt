@@ -11,8 +11,10 @@ class SimpleBitcoinWalletTest {
 //        val bigInt = BigInteger("103649842199441556598144868365423343458701317043750737792021859763176291533996")
 //        val byteArray = bigInt.toUnsignedByteArray()
         // TODO this key is giving shorter public address, is this OK?
-        // [-108, -49, -7, -126, 108, -64, 2, 67, -65, 112, 98, 30, -46, 11, -120, 102, 10, 63, -100, 26, -73, 3, -89, 32, -2, 13, -78, -27, 126, -87, 68, -11 ]
-        val byteArray = byteArrayOf(-108, -49, -7, -126, 108, -64, 2, 67, -65, 112, 98, 30, -46, 11, -120, 102, 10, 63, -100, 26, -73, 3, -89, 32, -2, 13, -78, -27, 126, -87, 68, -11)
+        val byteArray = byteArrayOf(
+            -108, -49, -7, -126, 108, -64, 2, 67, -65, 112, 98, 30, -46, 11, -120, 102, 10, 63, -100, 26, -73, 3, -89,
+            32, -2, 13, -78, -27, 126, -87, 68, -11
+        )
 
         val ecKey = ECKey(byteArray)
         val wallet = SimpleBitcoinWallet(ecKey)

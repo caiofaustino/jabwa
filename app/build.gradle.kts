@@ -6,6 +6,12 @@ plugins {
     codeChecks
 }
 
+detekt {
+    toolVersion = libs.plugins.detekt.get().version.requiredVersion
+    config = files("${rootProject.projectDir}/config/detekt/detekt.yml")
+    buildUponDefaultConfig = true
+}
+
 android {
     namespace = "dev.caiofaustino.jabwa"
     compileSdk = 32
@@ -25,16 +31,15 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
+
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
     buildFeatures {
         viewBinding = true
-        compose = true
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.get()
-    }
+
     packagingOptions {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"

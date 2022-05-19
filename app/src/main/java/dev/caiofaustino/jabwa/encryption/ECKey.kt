@@ -29,7 +29,7 @@ class ECKey(private val privateKeyInternal: BigInteger?, private val publicKeyIn
         privateKey = if (privateKeyInternal != null) {
             // Try and catch buggy callers or bad key imports, etc.
             if (!checkKey(privateKeyInternal)) {
-                throw RuntimeException("Invalid Private Key")
+                throw IllegalArgumentException("Invalid Private Key")
             }
 
             privateKeyInternal.toUnsignedByteArray()
@@ -47,10 +47,10 @@ class ECKey(private val privateKeyInternal: BigInteger?, private val publicKeyIn
      * Check if private key is valid value.
      */
     private fun checkKey(key: BigInteger): Boolean {
-        // Zero and one are special because these are often used as sentinel values and because scripting languages have a habit of auto-casting true and false to
+        // Zero and one are special because these are often used as sentinel values
+        // and because scripting languages have a habit of auto-casting true and false to
         // 1 and 0 or vice-versa. Type confusion bugs could therefore result in private keys with these values.
-        val expectedBitLength = 32 * 8 // 32 bytes
-        return key.bitLength() <= expectedBitLength && key != BigInteger.ZERO && key != BigInteger.ONE
+        return key.bitLength() <= privateKeyLength && key != BigInteger.ZERO && key != BigInteger.ONE
     }
 
 //    /**
@@ -75,6 +75,8 @@ class ECKey(private val privateKeyInternal: BigInteger?, private val publicKeyIn
 //    }
 
     companion object {
+        private const val bitsInByte = 8
+        private const val privateKeyLength = 32 * bitsInByte
 
         // Bitcoin's elliptic curve
         private const val secp256k1CurveName = "secp256k1"
@@ -107,7 +109,8 @@ class ECKey(private val privateKeyInternal: BigInteger?, private val publicKeyIn
 //            val publicParams: ECPublicKeyParameters = keyPair.public as ECPublicKeyParameters
 
             // TODO: missing from bitcoinj
-            //  Point compression is used so the resulting public key will be 33 bytes (32 for the co-ordinate and 1 byte to represent the y bit).
+            // Point compression is used so the resulting public key will be 33 bytes
+            // (32 for the co-ordinate and 1 byte to represent the y bit).
             return ECKey(privateParams.d)
         }
 

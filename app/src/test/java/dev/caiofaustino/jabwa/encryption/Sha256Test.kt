@@ -4,6 +4,7 @@ import org.bouncycastle.util.encoders.Hex
 import org.junit.Test
 import java.math.BigInteger
 import java.nio.charset.Charset
+import java.util.Locale
 
 class Sha256Test {
 
@@ -19,6 +20,6 @@ class Sha256Test {
         println("Sha256: $encodedResult")
         println("Sha256: ${Hex.toHexString(catHash)}")
 
-        assert(encodedResult.toUpperCase() == expectedHashValue)
+        assert(encodedResult.uppercase(Locale.getDefault()) == expectedHashValue)
     }
 }
