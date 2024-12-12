@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose.compiler)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.ktlint.gradle)
@@ -48,9 +49,24 @@ android {
 }
 
 dependencies {
+    implementation(projects.mvi)
+
+    implementation(libs.androidx.core.ktx)?.because("Better support for older Android versions")
+    implementation(libs.androidx.lifecycle.viewmodel)?.because("Adds ViewModel and sub-utilities.")
+    implementation(libs.androidx.lifecycle.viewmodel.compose)?.because("ViewModel utilities for Compose")
+    implementation(libs.androidx.lifecycle.runtime.compose)?.because("Lifecycle utilities for Compose")
+
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.compose.ui)
+    implementation(libs.compose.ui.graphics)
+    implementation(libs.compose.ui.tooling.preview)
+    implementation(libs.androidx.material3)
+
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.navigation.compose)
+
 
     implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.constraintlayout)
 
     implementation(libs.bouncycastle.bcprov.jdk15on)

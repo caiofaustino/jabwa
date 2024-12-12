@@ -2,7 +2,10 @@
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 rootProject.name = "jabwa"
-include(":app")
+include(
+    ":app",
+    ":mvi",
+)
 
 pluginManagement {
     repositories {
