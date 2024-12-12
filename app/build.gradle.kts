@@ -1,25 +1,20 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-//    alias(libs.plugins.android.app)
-//    alias(libs.plugins.kotlin.android)
-    codeChecks
-}
-
-detekt {
-    toolVersion = libs.plugins.detekt.get().version.requiredVersion
-    config = files("${rootProject.projectDir}/config/detekt/detekt.yml")
-    buildUponDefaultConfig = true
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.ktlint.gradle)
+    alias(libs.plugins.detekt)
 }
 
 android {
     namespace = "dev.caiofaustino.jabwa"
-    compileSdk = 32
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "dev.caiofaustino.jabwa"
         minSdk = 21
-        targetSdk = 32
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -32,15 +27,20 @@ android {
         }
     }
 
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 
     buildFeatures {
         viewBinding = true
     }
 
-    packagingOptions {
+    packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
@@ -49,13 +49,13 @@ android {
 
 dependencies {
 
-    implementation("androidx.appcompat:appcompat:1.4.1")
-    implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.3")
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.constraintlayout)
 
-    implementation("org.bouncycastle:bcprov-jdk15on:1.68")
+    implementation(libs.bouncycastle.bcprov.jdk15on)
 
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test:runner:1.4.0")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.runner)
+    androidTestImplementation(libs.androidx.espresso.core)
 }
