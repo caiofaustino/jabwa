@@ -67,9 +67,6 @@ dependencies {
 
     debugImplementation(libs.compose.ui.tooling)
 
-    implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.constraintlayout)
-
     implementation(libs.bouncycastle.bcprov.jdk15on)
 
     testImplementation(libs.junit)
