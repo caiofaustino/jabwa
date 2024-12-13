@@ -6,5 +6,5 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class CreateWalletUiState(
-    val test: String = "",
+    val address: String = "",
 ) : UiState, Parcelable

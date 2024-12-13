@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import dev.caiofaustino.jabwa.createwallet.mvi.CreateWalletAction
 import dev.caiofaustino.jabwa.createwallet.mvi.CreateWalletProcessor
 import dev.caiofaustino.jabwa.createwallet.mvi.CreateWalletReducer
 import dev.caiofaustino.jabwa.createwallet.mvi.CreateWalletUiState
@@ -23,7 +24,7 @@ class CreateWalletViewModel(
     private val processor: CreateWalletProcessor,
     reducer: CreateWalletReducer,
     private val savedState: SavedStateHandle,
-    viewModelScope: CoroutineScope = CoroutineScope(Dispatchers.Main + SupervisorJob()),
+    viewModelScope: CoroutineScope,
 ) : ViewModel(viewModelScope), MviStore<CreateWalletUiState> {
 
     override val uiState: StateFlow<CreateWalletUiState> =
@@ -35,6 +36,10 @@ class CreateWalletViewModel(
                 initialValue = savedState[UI_STATE] ?: CreateWalletUiState(),
             )
 
+    fun onUserAction(userAction: CreateWalletAction) {
+        processor.process(userAction)
+    }
+
     override fun onCleared() {
         super.onCleared()
         savedState[UI_STATE] = uiState.value
@@ -44,10 +49,12 @@ class CreateWalletViewModel(
         val factory =
             viewModelFactory {
                 initializer {
+                    val coroutineScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
                     CreateWalletViewModel(
-                        processor = CreateWalletProcessor(),
+                        processor = CreateWalletProcessor(coroutineScope),
                         reducer = CreateWalletReducer(),
                         savedState = createSavedStateHandle(),
+                        viewModelScope = coroutineScope,
                     )
                 }
             }

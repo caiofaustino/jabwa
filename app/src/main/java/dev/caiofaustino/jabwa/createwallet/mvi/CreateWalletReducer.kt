@@ -7,7 +7,11 @@ class CreateWalletReducer : StateReducer<CreateWalletResult, CreateWalletUiState
     override fun reduce(
         previousState: CreateWalletUiState,
         result: CreateWalletResult
-    ): CreateWalletUiState {
-        TODO("Not yet implemented")
-    }
+    ): CreateWalletUiState =
+        when (result) {
+            CreateWalletResult.ShowWipText -> {
+                previousState.copy(address = "Sorry feature is still WIP")
+            }
+        }
+
 }
